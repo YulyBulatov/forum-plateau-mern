@@ -13,6 +13,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Define routes
+
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
+
+const authMiddleware = require('./middleware/authMiddleware');
+
+app.get('/api/protected', authMiddleware, (req, res) => {
+    res.json({ msg: 'This is a protected route', user: req.user });
+});
+
+// Test route to create a user
+
+
 const User = require('./models/User');
 
 app.get("/test-user", async (req, res) => {
@@ -30,7 +44,7 @@ app.get("/test-user", async (req, res) => {
     }
 });
 
-// Define routes
+
 app.get('/', (req, res) => res.send('API is running...'));
 
 // Start the server
