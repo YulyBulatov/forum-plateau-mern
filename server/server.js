@@ -24,6 +24,14 @@ app.get('/api/protected', authMiddleware, (req, res) => {
     res.json({ msg: 'This is a protected route', user: req.user });
 });
 
+const categoryRoutes = require('./routes/category');
+const topicRoutes = require('./routes/topic');
+const messageRoutes = require('./routes/message');
+
+app.use('/api/categories', categoryRoutes);
+app.use('/api/topics', topicRoutes);
+app.use('/api/messages', messageRoutes);
+
 // Test route to create a user
 
 
